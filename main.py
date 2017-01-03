@@ -10,25 +10,24 @@
   If all digits have been tried and nothing worked, return false
 '''
 
-
 # check the given Sodoku array in a specific row for the same number
-def check_row(arr, row, num):
+def check_row (arr, row, num):
   for i in range(9):
     if arr[row][i] == num:
       return False
-    return True
+  return True
 
 
 # check the given Sodoku array in a specific column for the same number
-def check_column(arr, col, num):
+def check_column (arr, col, num):
   for i in range(9):
     if arr[i][col] == num:
-      return True
-    return False
+      return False
+  return True
 
 
 # check for matches with the assigned number in its 3X3 box
-def check_box(arr, row, col, num):
+def check_box (arr, row, col, num):
   rowStart = (row/3) * 3
   colStart = (col/3) * 3
   for i in range(3):
@@ -67,10 +66,11 @@ def solve(arr):
   if not find_unassigned_entry(arr, unassigned):
     return True
 
+
   row = unassigned[0]
   col = unassigned[1]
 
-  for i in range(9):
+  for i in range(1, 10):
     if is_safe(arr, row, col, i):
 
       arr[row][col] = i
@@ -83,6 +83,32 @@ def solve(arr):
 
   # if the grid is unsolvable, backtrack
   return False
+
+
+def print_solved_soduko(arr):
+  for i in range(9):
+    for j in range(9):
+      print arr[i][j],
+    print '\n'
+
+
+if __name__ == "__main__":
+  arr = [[0 for x in range(9)] for y in range(9)]
+
+  test = [[0,0,0,2,6,0,7,0,1],
+          [6,8,0,0,7,0,0,9,0],
+          [1,9,0,0,0,4,5,0,0],
+          [8,2,0,1,0,0,0,4,0],
+          [0,0,4,6,0,2,9,0,0],
+          [0,5,0,0,0,3,0,2,8],
+          [0,0,9,3,0,0,0,7,4],
+          [0,4,0,0,5,0,0,3,6],
+          [7,0,3,0,1,8,0,0,0]]
+
+  if solve(test):
+    print_solved_soduko(test)
+  else:
+    print "Sorry! I was unable to find a solution for this test"
 
 
 
